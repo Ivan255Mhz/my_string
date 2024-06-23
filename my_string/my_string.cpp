@@ -41,8 +41,8 @@ public:
 	~String() { delete[] str;}
 
 	String& operator+=(const String& str) {
-		int new_sz = strlen(this->str) + strlen(str.str) + 1;
-		char* new_str = new char[new_sz];
+		sz = (strlen(this->str) + strlen(str.str)) + 1;
+		char* new_str = new char[sz];
 		int i = 0;
 		for (; i < strlen(this->str); ++i) {
 			new_str[i] = this->str[i];
@@ -53,10 +53,28 @@ public:
 		new_str[i] = '\0';
 		delete[] this->str;
 		this->str = new_str;
+		
 		return *this;
 	}
 
+	String operator+(const String& str2) {
+		String temp;
+		temp.sz= (strlen(str) + strlen(str2.str)) + 1;
+		temp.str = new char[temp.sz];
+		int i = 0;
+		for (; i < strlen(str); ++i) {
+			temp.str[i] = str[i];
+		}
+		for (int j = 0; j < strlen(str2.str); ++j, ++i) {
+			temp.str[i] = str2.str[j];
+		}
+		temp.str[i] = '\0';
+
+		return temp;
+	}
+
 	size_t size() const {
+		
 		return sz;
 	}
 
@@ -76,15 +94,7 @@ istream& operator>> (istream& in, const String& str) {
 
 int main() {
 
-	String t = "Ivan";
-
-	String a = " Belyaev";
-
-	t += a;
-
-	cout << a << endl;;
-
-	cout << a.size();
+	
 
 	return 0;
 
